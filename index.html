@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Alfath - Pengembang Full Stack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kawasaki-green': '#00B04F',
+                        'kawasaki-dark': '#0a0a0a',
+                        'kawasaki-light': '#1a1a1a',
+                        'kawasaki-accent': '#0d4f21'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        
+        .glow-green {
+            box-shadow: 0 0 30px rgba(0, 176, 79, 0.4);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 15px rgba(0, 176, 79, 0.8);
+        }
+        
+        .bg-gradient-kawasaki {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+        }
+        
+        .bg-gradient-hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 30%, #00B04F 100%);
+        }
+        
+        .hover-scale {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .glass-effect {
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 176, 79, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 176, 79, 0.2);
+        }
+        
+        .sidebar-active {
+            background: linear-gradient(90deg, rgba(0, 176, 79, 0.3) 0%, transparent 100%);
+            border-right: 4px solid #00B04F;
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 176, 79, 0.3);
+        }
+        
+        .input-glow:focus {
+            box-shadow: 0 0 0 3px rgba(0, 176, 79, 0.4);
+        }
+        
+        .notification {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 176, 79, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 176, 79, 0.6); }
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #00B04F;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00B04F; }
+        }
+        
+        .skill-bar {
+            animation: fillBar 2s ease-out;
+        }
+        
+        @keyframes fillBar {
+            from { width: 0%; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .project-card {
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.9));
+        }
+        
+        .admin-mode {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+    </style>
+</head>
+<body class="bg-kawasaki-dark text-white font-inter overflow-x-hidden">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass-effect transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-kawasaki-green rounded-lg flex items-center justify-center pulse-glow">
+                        <span class="font-poppins font-bold text-black">A</span>
+                    </div>
+                    <span class="font-poppins font-bold text-xl text-kawasaki-green text-glow">ALFATH</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link hover:text-kawasaki-green transition-colors duration-300">Beranda</a>
+                    <a href="#about" class="nav-link hover:text-kawasaki-green transition-colors duration-300">Tentang</a>
+                    <a href="#skills" class="nav-link hover:text-kawasaki-green transition-colors duration-300">Keahlian</a>
+                    <a href="#projects" class="nav-link hover:text-kawasaki-green transition-colors duration-300">Proyek</a>
+                    <a href="#contact" class="nav-link hover:text-kawasaki-green transition-colors duration-300">Kontak</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="showAdminLogin()" class="bg-kawasaki-green/20 hover:bg-kawasaki-green/30 px-4 py-2 rounded-lg transition-all duration-300 text-kawasaki-green">
+                        <span id="admin-btn-text">Masuk Admin</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden text-kawasaki-green">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portfolio Mode -->
+    <div id="portfolio-mode">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="slide-in">
+                    <div class="w-32 h-32 bg-kawasaki-green rounded-full mx-auto mt-8 flex items-center justify-center glow-green floating">
+                        <img style="border-radius: 500px;" src="Gemini_Generated_Image_5i0nna5i0nna5i0n.png" alt="Gambar dari URL" width="300">
+                    </div>
+                    <h1 class="font-poppins font-bold text-5xl md:text-7xl mb-6 text-glow">
+                        Mochamad Alfath Rizqi
+                    </h1>
+                    <div class="text-xl md:text-2xl text-kawasaki-green mb-8 typing-animation overflow-hidden whitespace-nowrap">
+                        SISWA SMK KRIAN 1 REKAYASA PERANGKAT LUNAK
+                    </div>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-12">
+                        Berdedikasi menciptakan solusi web inovatif dan mengelola infrastruktur server yang handal. 
+                        Mari wujudkan ide-ide luar biasa bersama-sama! ✨
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="scrollToSection('projects')" class="bg-kawasaki-green text-black px-8 py-4 rounded-lg font-semibold hover:bg-green-600 transition-all duration-300 hover-scale glow-green">
+                            🚀 Lihat Karya Saya
+                        </button>
+                        <button onclick="scrollToSection('contact')" class="border-2 border-kawasaki-green text-kawasaki-green px-8 py-4 rounded-lg font-semibold hover:bg-kawasaki-green hover:text-black transition-all duration-300 hover-scale">
+                            💬 Mari Berkolaborasi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-kawasaki-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-poppins font-bold text-4xl md:text-5xl mb-6 text-kawasaki-green text-glow">Tentang Saya</h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Seorang developer berpengalaman dengan keahlian dalam teknologi web modern dan administrasi server. 🌟
+                    </p>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="glass-card p-8 rounded-2xl card-hover">
+                        <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">🌟 Perjalanan Karir Saya</h3>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Sebagai seorang Full Stack Developer yang berpengalaman, saya telah mengembangkan berbagai aplikasi web modern 
+                            dan mengelola infrastruktur server yang kompleks. Dengan semangat tinggi terhadap teknologi, saya selalu 
+                            berusaha menciptakan solusi yang tidak hanya inovatif, tetapi juga memberikan dampak nyata bagi pengguna. 💡
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            Keahlian saya meliputi pengembangan frontend menggunakan React, Vue.js, dan framework modern lainnya, 
+                            serta backend development dengan Node.js, Python, dan manajemen database yang efisien. Setiap proyek 
+                            adalah kesempatan untuk belajar dan berkembang! 🚀
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-xl text-center card-hover">
+                            <div class="text-3xl mb-4">🚀</div>
+                            <h4 class="font-poppins font-bold text-xl text-kawasaki-green mb-2">15+</h4>
+                            <p class="text-gray-400">Proyek Selesai</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl text-center card-hover">
+                            <div class="text-3xl mb-4">⚡</div>
+                            <h4 class="font-poppins font-bold text-xl text-kawasaki-green mb-2">30+</h4>
+                            <p class="text-gray-400">Teknologi Dikuasai</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl text-center card-hover">
+                            <div class="text-3xl mb-4">👥</div>
+                            <h4 class="font-poppins font-bold text-xl text-kawasaki-green mb-2">75+</h4>
+                            <p class="text-gray-400">Klien Puas</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl text-center card-hover">
+                            <div class="text-3xl mb-4">🏆</div>
+                            <h4 class="font-poppins font-bold text-xl text-kawasaki-green mb-2">4+</h4>
+                            <p class="text-gray-400">Tahun Pengalaman</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-kawasaki-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-poppins font-bold text-4xl md:text-5xl mb-6 text-kawasaki-green text-glow">Keahlian & Expertise</h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Teknologi dan tools yang saya gunakan untuk mewujudkan ide-ide kreatif menjadi kenyataan ⚡
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Frontend Skills -->
+                    <div class="glass-card p-8 rounded-2xl card-hover">
+                        <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">🎨 Frontend Development</h3>
+                        <div class="space-y-6">
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">HTML/CSS</span>
+                                    <span class="text-kawasaki-green">95%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">JavaScript</span>
+                                    <span class="text-kawasaki-green">90%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">React.js</span>
+                                    <span class="text-kawasaki-green">88%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 88%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Skills -->
+                    <div class="glass-card p-8 rounded-2xl card-hover">
+                        <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">⚙️ Backend Development</h3>
+                        <div class="space-y-6">
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">Node.js</span>
+                                    <span class="text-kawasaki-green">88%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">Python</span>
+                                    <span class="text-kawasaki-green">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">MongoDB</span>
+                                    <span class="text-kawasaki-green">82%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 82%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DevOps Skills -->
+                    <div class="glass-card p-8 rounded-2xl card-hover">
+                        <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">🚀 DevOps & Infrastructure</h3>
+                        <div class="space-y-6">
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">Linux</span>
+                                    <span class="text-kawasaki-green">92%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">Docker</span>
+                                    <span class="text-kawasaki-green">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">AWS</span>
+                                    <span class="text-kawasaki-green">80%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-kawasaki-green h-3 rounded-full skill-bar" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-kawasaki-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-poppins font-bold text-4xl md:text-5xl mb-6 text-kawasaki-green text-glow">Proyek Unggulan</h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Beberapa karya terbaru yang menunjukkan keahlian dan kreativitas saya dalam pengembangan 🎯
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="project-card p-6 rounded-2xl card-hover">
+                        <div class="h-48 bg-gradient-to-br from-kawasaki-green to-green-600 rounded-xl mb-6 flex items-center justify-center">
+                            <span class="font-poppins font-bold text-2xl text-black">E-COMMERCE</span>
+                        </div>
+                        <h3 class="font-poppins font-bold text-xl mb-3 text-kawasaki-green">🛒 Platform E-Commerce Modern</h3>
+                        <p class="text-gray-300 mb-4">
+                            Platform e-commerce canggih dengan fitur lengkap seperti payment gateway terintegrasi, 
+                            sistem manajemen inventori real-time, dan dashboard admin yang powerful untuk mengelola bisnis online dengan mudah.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Node.js</span>
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">MongoDB</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                🌐 Demo Langsung
+                            </button>
+                            <button class="border border-kawasaki-green text-kawasaki-green px-4 py-2 rounded-lg hover:bg-kawasaki-green hover:text-black transition-all duration-300">
+                                📂 Kode Sumber
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="project-card p-6 rounded-2xl card-hover">
+                        <div class="h-48 bg-gradient-to-br from-kawasaki-green to-green-600 rounded-xl mb-6 flex items-center justify-center">
+                            <span class="font-poppins font-bold text-2xl text-black">TASK MANAGER</span>
+                        </div>
+                        <h3 class="font-poppins font-bold text-xl mb-3 text-kawasaki-green">📋 Sistem Manajemen Tim</h3>
+                        <p class="text-gray-300 mb-4">
+                            Aplikasi manajemen tugas tim yang canggih dengan kolaborasi real-time, 
+                            sistem notifikasi pintar, dan dashboard analytics untuk meningkatkan produktivitas tim secara maksimal.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Vue.js</span>
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Express</span>
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Socket.io</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                🌐 Demo Langsung
+                            </button>
+                            <button class="border border-kawasaki-green text-kawasaki-green px-4 py-2 rounded-lg hover:bg-kawasaki-green hover:text-black transition-all duration-300">
+                                📂 Kode Sumber
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="project-card p-6 rounded-2xl card-hover">
+                        <div class="h-48 bg-gradient-to-br from-kawasaki-green to-green-600 rounded-xl mb-6 flex items-center justify-center">
+                            <span class="font-poppins font-bold text-2xl text-black">API GATEWAY</span>
+                        </div>
+                        <h3 class="font-poppins font-bold text-xl mb-3 text-kawasaki-green">Microservices API Gateway</h3>
+                        <p class="text-gray-300 mb-4">
+                            API Gateway untuk arsitektur microservices dengan load balancing, 
+                            rate limiting, dan monitoring system.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Docker</span>
+                            <span class="bg-kawasaki-green/20 text-kawasaki-green px-3 py-1 rounded-full text-sm">Redis</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                🌐 Demo Langsung
+                            </button>
+                            <button class="border border-kawasaki-green text-kawasaki-green px-4 py-2 rounded-lg hover:bg-kawasaki-green hover:text-black transition-all duration-300">
+                                📂 Kode Sumber
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-kawasaki-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-poppins font-bold text-4xl md:text-5xl mb-6 text-kawasaki-green text-glow">Get In Touch</h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Ready to start your next project? Let's discuss how we can work together.
+                    </p>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div class="glass-card p-8 rounded-2xl">
+                        <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">Send Message</h3>
+                        <form class="space-y-6" onsubmit="sendMessage(event)">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Name</label>
+                                    <input type="text" required class="w-full px-4 py-3 bg-kawasaki-light border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Email</label>
+                                    <input type="email" required class="w-full px-4 py-3 bg-kawasaki-light border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Subject</label>
+                                <input type="text" required class="w-full px-4 py-3 bg-kawasaki-light border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Message</label>
+                                <textarea rows="5" required class="w-full px-4 py-3 bg-kawasaki-light border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300 resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-kawasaki-green text-black py-3 rounded-lg font-semibold hover:bg-green-600 transition-all duration-300 glow-green">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div class="glass-card p-6 rounded-xl card-hover">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                    <span class="text-kawasaki-green text-xl">📧</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-kawasaki-green">Email</h4>
+                                    <p class="text-gray-300">rizqialfath012@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl card-hover">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                    <span class="text-kawasaki-green text-xl">📱</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-kawasaki-green">Phone</h4>
+                                    <p class="text-gray-300">+62 812-2614-5288</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl card-hover">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                    <span class="text-kawasaki-green text-xl">📍</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-kawasaki-green">Location</h4>
+                                    <p class="text-gray-300">Sidoarjo, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl">
+                            <h4 class="font-poppins font-bold text-lg mb-4 text-kawasaki-green">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-kawasaki-green/20 rounded-lg flex items-center justify-center hover:bg-kawasaki-green/30 transition-colors duration-300">
+                                    <span class="text-kawasaki-green">📘</span>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-kawasaki-green/20 rounded-lg flex items-center justify-center hover:bg-kawasaki-green/30 transition-colors duration-300">
+                                    <span class="text-kawasaki-green">🐦</span>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-kawasaki-green/20 rounded-lg flex items-center justify-center hover:bg-kawasaki-green/30 transition-colors duration-300">
+                                    <span class="text-kawasaki-green">💼</span>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-kawasaki-green/20 rounded-lg flex items-center justify-center hover:bg-kawasaki-green/30 transition-colors duration-300">
+                                    <span class="text-kawasaki-green">🐙</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="glass-effect p-8 rounded-2xl w-full max-w-md mx-4 slide-in">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-kawasaki-green rounded-full mx-auto mb-4 flex items-center justify-center glow-green">
+                    <span class="font-poppins font-bold text-2xl text-black">🔐</span>
+                </div>
+                <h2 class="font-poppins font-bold text-2xl text-kawasaki-green text-glow">Admin Login</h2>
+                <p class="text-gray-400 mt-2">Enter your credentials to access admin panel</p>
+            </div>
+            
+            <form onsubmit="adminLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Username</label>
+                    <input type="text" id="admin-username" required class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300" placeholder="Enter username">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="admin-password" required class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300" placeholder="Enter password">
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="remember-me" class="w-4 h-4 text-kawasaki-green bg-kawasaki-dark border-kawasaki-green/30 rounded focus:ring-kawasaki-green">
+                    <label for="remember-me" class="ml-2 text-sm text-gray-300">Remember me</label>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button type="button" onclick="hideAdminLogin()" class="flex-1 px-4 py-3 border border-kawasaki-green text-kawasaki-green rounded-lg hover:bg-kawasaki-green hover:text-black transition-all duration-300">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 px-4 py-3 bg-kawasaki-green text-black rounded-lg hover:bg-green-600 transition-all duration-300 glow-green">
+                        Login
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-6 p-4 bg-kawasaki-green/10 rounded-lg border border-kawasaki-green/30">
+                <p class="text-sm text-kawasaki-green font-semibold mb-2">Demo Credentials:</p>
+                <p class="text-xs text-gray-300">Username: <span class="text-kawasaki-green">alfathrizqi123</span></p>
+                <p class="text-xs text-gray-300">Password: <span class="text-kawasaki-green">rizqi123</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Mode -->
+    <div id="admin-mode" class="hidden admin-mode min-h-screen">
+        <!-- Admin Sidebar -->
+        <div id="admin-sidebar" class="fixed left-0 top-0 h-full w-64 bg-gradient-kawasaki border-r border-kawasaki-green/30 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+            <div class="p-6">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 bg-kawasaki-green rounded-lg flex items-center justify-center pulse-glow">
+                        <span class="font-poppins font-bold text-black">A</span>
+                    </div>
+                    <div>
+                        <h1 class="font-poppins font-bold text-lg text-kawasaki-green text-glow">ADMIN PANEL</h1>
+                        <p class="text-xs text-gray-400">Portfolio Manager</p>
+                    </div>
+                </div>
+                
+                <nav class="space-y-2">
+                    <a href="#" onclick="showAdminSection('dashboard')" class="admin-nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-kawasaki-green/10 transition-all duration-300 sidebar-active">
+                        <span class="text-kawasaki-green">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" onclick="showAdminSection('profile')" class="admin-nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-kawasaki-green/10 transition-all duration-300">
+                        <span class="text-kawasaki-green">👤</span>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" onclick="showAdminSection('skills')" class="admin-nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-kawasaki-green/10 transition-all duration-300">
+                        <span class="text-kawasaki-green">⚡</span>
+                        <span>Skills</span>
+                    </a>
+                    <a href="#" onclick="showAdminSection('projects')" class="admin-nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-kawasaki-green/10 transition-all duration-300">
+                        <span class="text-kawasaki-green">🚀</span>
+                        <span>Projects</span>
+                    </a>
+                    <a href="#" onclick="showAdminSection('messages')" class="admin-nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-kawasaki-green/10 transition-all duration-300">
+                        <span class="text-kawasaki-green">💬</span>
+                        <span>Messages</span>
+                        <span class="bg-kawasaki-green text-black text-xs px-2 py-1 rounded-full ml-auto">3</span>
+                    </a>
+                    <a href="#" onclick="showAdminSection('settings')" class="admin-nav-link flex items-center space-x-3 p-3 rounded-lg hover:bg-kawasaki-green/10 transition-all duration-300">
+                        <span class="text-kawasaki-green">⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <div class="absolute bottom-6 left-6 right-6">
+                <div class="glass-effect p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-kawasaki-green rounded-full flex items-center justify-center">
+                            <span class="font-bold text-black">MA</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Alfath Rizqi</p>
+                            <p class="text-xs text-gray-400">Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Main Content -->
+        <div class="lg:ml-64 min-h-screen">
+            <!-- Admin Header -->
+            <header class="bg-kawasaki-light border-b border-kawasaki-green/30 p-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 id="admin-page-title" class="font-poppins font-bold text-2xl text-kawasaki-green text-glow">Dashboard</h2>
+                        <p class="text-gray-400">Welcome back, Alfath</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-kawasaki-green hover:bg-kawasaki-green/10 rounded-lg transition-colors duration-300">
+                            <span class="text-xl">🔔</span>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">2</span>
+                        </button>
+                        <button onclick="toggleAdminMode()" class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                            Back to Portfolio
+                        </button>
+                        <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors duration-300">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Admin Dashboard -->
+            <div id="admin-dashboard" class="admin-section p-6">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="glass-effect p-6 rounded-xl card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Total Projects</p>
+                                <p class="font-poppins font-bold text-3xl text-kawasaki-green">12</p>
+                            </div>
+                            <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                <span class="text-kawasaki-green text-xl">🚀</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Skills</p>
+                                <p class="font-poppins font-bold text-3xl text-kawasaki-green">24</p>
+                            </div>
+                            <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                <span class="text-kawasaki-green text-xl">⚡</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Messages</p>
+                                <p class="font-poppins font-bold text-3xl text-kawasaki-green">47</p>
+                            </div>
+                            <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                <span class="text-kawasaki-green text-xl">💬</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect p-6 rounded-xl card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Profile Views</p>
+                                <p class="font-poppins font-bold text-3xl text-kawasaki-green">1.2K</p>
+                            </div>
+                            <div class="w-12 h-12 bg-kawasaki-green/20 rounded-lg flex items-center justify-center">
+                                <span class="text-kawasaki-green text-xl">👁️</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity & Quick Actions -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h3 class="font-poppins font-bold text-xl mb-4 text-kawasaki-green">Recent Activity</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4 p-3 bg-kawasaki-dark/50 rounded-lg">
+                                <div class="w-10 h-10 bg-kawasaki-green/20 rounded-full flex items-center justify-center">
+                                    <span class="text-kawasaki-green">📝</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold">Updated E-Commerce Project</p>
+                                    <p class="text-sm text-gray-400">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 p-3 bg-kawasaki-dark/50 rounded-lg">
+                                <div class="w-10 h-10 bg-kawasaki-green/20 rounded-full flex items-center justify-center">
+                                    <span class="text-kawasaki-green">💬</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold">New message from client</p>
+                                    <p class="text-sm text-gray-400">5 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 p-3 bg-kawasaki-dark/50 rounded-lg">
+                                <div class="w-10 h-10 bg-kawasaki-green/20 rounded-full flex items-center justify-center">
+                                    <span class="text-kawasaki-green">⚡</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold">Added new skill: Docker</p>
+                                    <p class="text-sm text-gray-400">1 day ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h3 class="font-poppins font-bold text-xl mb-4 text-kawasaki-green">Quick Actions</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="showAdminSection('projects')" class="bg-kawasaki-green/20 hover:bg-kawasaki-green/30 p-4 rounded-lg text-center transition-all duration-300 hover-scale">
+                                <span class="text-2xl block mb-2">🚀</span>
+                                <span class="text-sm">Add Project</span>
+                            </button>
+                            <button onclick="showAdminSection('skills')" class="bg-kawasaki-green/20 hover:bg-kawasaki-green/30 p-4 rounded-lg text-center transition-all duration-300 hover-scale">
+                                <span class="text-2xl block mb-2">⚡</span>
+                                <span class="text-sm">Add Skill</span>
+                            </button>
+                            <button onclick="showAdminSection('profile')" class="bg-kawasaki-green/20 hover:bg-kawasaki-green/30 p-4 rounded-lg text-center transition-all duration-300 hover-scale">
+                                <span class="text-2xl block mb-2">👤</span>
+                                <span class="text-sm">Edit Profile</span>
+                            </button>
+                            <button onclick="showAdminSection('messages')" class="bg-kawasaki-green/20 hover:bg-kawasaki-green/30 p-4 rounded-lg text-center transition-all duration-300 hover-scale">
+                                <span class="text-2xl block mb-2">💬</span>
+                                <span class="text-sm">View Messages</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Admin Sections (Profile, Skills, Projects, Messages, Settings) -->
+            <div id="admin-profile" class="admin-section p-6 hidden">
+                <div class="max-w-4xl mx-auto">
+                    <div class="glass-effect p-8 rounded-xl">
+                        <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">Edit Profile</h3>
+                        <form class="space-y-6" onsubmit="saveProfile(event)">
+                            <!-- Profile Photo Section -->
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="flex-shrink-0">
+                                    <label class="block text-sm font-medium mb-2">Profile Photo</label>
+                                    <div class="relative">
+                                        <div id="profile-photo-preview" class="w-32 h-32 bg-kawasaki-green rounded-full flex items-center justify-center glow-green overflow-hidden">
+                                            <span class="font-poppins font-bold text-4xl text-black"><img src="pokw.jpeg" alt="Deskripsi gambar"></span>
+                                        </div>
+                                        <button type="button" onclick="document.getElementById('photo-upload').click()" class="absolute bottom-0 right-0 w-10 h-10 bg-kawasaki-green rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-300">
+                                            <span class="text-black text-lg">📷</span>
+                                        </button>
+                                        <input type="file" id="photo-upload" accept="image/*" onchange="previewPhoto(event)" class="hidden">
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-2">Click camera icon to upload photo</p>
+                                </div>
+                                
+                                <div class="flex-1 grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                                        <input type="text" value="Mochamad Alfath Rizqi" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Title</label>
+                                        <input type="text" value="Full Stack Developer & System Administrator" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Email</label>
+                                    <input type="email" value="alfath.dev@example.com" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Phone</label>
+                                    <input type="tel" value="+62 812-3456-7890" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">About Me</label>
+                                <textarea rows="5" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300 resize-none">Saya adalah seorang Full Stack Developer dengan pengalaman dalam mengembangkan aplikasi web modern dan mengelola sistem server. Dengan passion yang tinggi terhadap teknologi, saya selalu berusaha untuk menciptakan solusi yang inovatif dan efisien.</textarea>
+                            </div>
+                            
+                            <div class="flex justify-end space-x-4">
+                                <button type="button" class="px-6 py-3 border border-kawasaki-green text-kawasaki-green rounded-lg hover:bg-kawasaki-green hover:text-black transition-all duration-300">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="px-6 py-3 bg-kawasaki-green text-black rounded-lg hover:bg-green-600 transition-all duration-300 glow-green">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Skills Section -->
+            <div id="admin-skills" class="admin-section p-6 hidden">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-poppins font-bold text-2xl text-kawasaki-green">Kelola Keahlian</h3>
+                        <button onclick="showAddSkillModal()" class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                            ➕ Tambah Keahlian
+                        </button>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="glass-effect p-6 rounded-xl card-hover">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-semibold text-kawasaki-green">JavaScript</h4>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-400 hover:text-blue-300">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Tingkat Keahlian</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-kawasaki-green h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400">Frontend & Backend Development</p>
+                        </div>
+                        
+                        <div class="glass-effect p-6 rounded-xl card-hover">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-semibold text-kawasaki-green">React.js</h4>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-400 hover:text-blue-300">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Tingkat Keahlian</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-kawasaki-green h-2 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400">Modern UI Development</p>
+                        </div>
+                        
+                        <div class="glass-effect p-6 rounded-xl card-hover">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-semibold text-kawasaki-green">Node.js</h4>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-400 hover:text-blue-300">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Tingkat Keahlian</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-kawasaki-green h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400">Server-side Development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Projects Section -->
+            <div id="admin-projects" class="admin-section p-6 hidden">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-poppins font-bold text-2xl text-kawasaki-green">Kelola Proyek</h3>
+                        <button onclick="showAddProjectModal()" class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                            ➕ Tambah Proyek
+                        </button>
+                    </div>
+                    
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <div class="glass-effect p-6 rounded-xl">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-semibold text-kawasaki-green text-lg">🛒 Platform E-Commerce Modern</h4>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-400 hover:text-blue-300">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">Platform e-commerce canggih dengan fitur lengkap seperti payment gateway terintegrasi...</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">React</span>
+                                <span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">Node.js</span>
+                                <span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">MongoDB</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-400">
+                                <span>Status: ✅ Selesai</span>
+                                <span>Dibuat: 15 Jan 2024</span>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect p-6 rounded-xl">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-semibold text-kawasaki-green text-lg">📋 Sistem Manajemen Tim</h4>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-400 hover:text-blue-300">✏️</button>
+                                    <button class="text-red-400 hover:text-red-300">🗑️</button>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">Aplikasi manajemen tugas tim yang canggih dengan kolaborasi real-time...</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">Vue.js</span>
+                                <span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">Express</span>
+                                <span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">Socket.io</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-400">
+                                <span>Status: 🔄 Dalam Pengembangan</span>
+                                <span>Dibuat: 10 Feb 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Messages Section -->
+            <div id="admin-messages" class="admin-section p-6 hidden">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-poppins font-bold text-2xl text-kawasaki-green">Pesan Masuk</h3>
+                        <div class="flex space-x-4">
+                            <button class="bg-kawasaki-green/20 text-kawasaki-green px-4 py-2 rounded-lg hover:bg-kawasaki-green/30 transition-colors duration-300">
+                                📧 Tandai Semua Dibaca
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="glass-effect p-6 rounded-xl border-l-4 border-kawasaki-green">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h4 class="font-semibold text-kawasaki-green">John Doe</h4>
+                                    <p class="text-sm text-gray-400">john.doe@example.com</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-kawasaki-green text-black text-xs px-2 py-1 rounded-full">Baru</span>
+                                    <p class="text-xs text-gray-400 mt-1">2 jam yang lalu</p>
+                                </div>
+                            </div>
+                            <h5 class="font-medium mb-2">Pertanyaan tentang Proyek E-Commerce</h5>
+                            <p class="text-gray-300 mb-4">Halo Alfath, saya tertarik dengan proyek e-commerce yang Anda buat. Bisakah kita diskusi lebih lanjut tentang implementasinya?</p>
+                            <div class="flex space-x-3">
+                                <button class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                    💬 Balas
+                                </button>
+                                <button class="border border-kawasaki-green text-kawasaki-green px-4 py-2 rounded-lg hover:bg-kawasaki-green hover:text-black transition-all duration-300">
+                                    ✅ Tandai Dibaca
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect p-6 rounded-xl">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h4 class="font-semibold">Sarah Wilson</h4>
+                                    <p class="text-sm text-gray-400">sarah.wilson@company.com</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-400">1 hari yang lalu</p>
+                                </div>
+                            </div>
+                            <h5 class="font-medium mb-2">Kolaborasi Proyek</h5>
+                            <p class="text-gray-300 mb-4">Terima kasih atas presentasi yang luar biasa kemarin. Tim kami sangat tertarik untuk berkolaborasi dalam proyek selanjutnya.</p>
+                            <div class="flex space-x-3">
+                                <button class="bg-kawasaki-green text-black px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                    💬 Balas
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Settings Section -->
+            <div id="admin-settings" class="admin-section p-6 hidden">
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="font-poppins font-bold text-2xl mb-6 text-kawasaki-green">Pengaturan</h3>
+                    
+                    <div class="space-y-6">
+                        <!-- Account Settings -->
+                        <div class="glass-effect p-6 rounded-xl">
+                            <h4 class="font-semibold text-lg mb-4 text-kawasaki-green">🔐 Pengaturan Akun</h4>
+                            <form class="space-y-4">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Username</label>
+                                        <input type="text" value="admin" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Email</label>
+                                        <input type="email" value="admin@alfathrizqi" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                    </div>
+                                </div>
+                                <button type="submit" class="bg-kawasaki-green text-black px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                    💾 Simpan Perubahan
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Security Settings -->
+                        <div class="glass-effect p-6 rounded-xl">
+                            <h4 class="font-semibold text-lg mb-4 text-kawasaki-green">🛡️ Keamanan</h4>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Password Lama</label>
+                                    <input type="password" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Password Baru</label>
+                                        <input type="password" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Konfirmasi Password</label>
+                                        <input type="password" class="w-full px-4 py-3 bg-kawasaki-dark border border-kawasaki-green/30 rounded-lg focus:border-kawasaki-green focus:outline-none input-glow transition-all duration-300">
+                                    </div>
+                                </div>
+                                <button type="submit" class="bg-kawasaki-green text-black px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                    🔒 Ubah Password
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Appearance Settings -->
+                        <div class="glass-effect p-6 rounded-xl">
+                            <h4 class="font-semibold text-lg mb-4 text-kawasaki-green">🎨 Tampilan</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h5 class="font-medium">Mode Gelap</h5>
+                                        <p class="text-sm text-gray-400">Aktifkan tema gelap untuk admin panel</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" checked class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-kawasaki-green"></div>
+                                    </label>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h5 class="font-medium">Notifikasi Suara</h5>
+                                        <p class="text-sm text-gray-400">Putar suara saat ada pesan baru</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-kawasaki-green"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="fixed top-4 right-4 bg-kawasaki-green text-black px-6 py-3 rounded-lg shadow-lg hidden notification z-50">
+        <p id="notification-text">Action completed successfully!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-kawasaki-dark border-t border-kawasaki-green/30 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-kawasaki-green rounded-lg flex items-center justify-center">
+                    <span class="font-poppins font-bold text-black text-sm">A</span>
+                </div>
+                <span class="font-poppins font-bold text-kawasaki-green">ALFATH PORTFOLIO</span>
+            </div>
+            <p class="text-gray-400 mb-4">© 2024 Mochamad Alfath Rizqi Albaihaqi. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-kawasaki-green transition-colors duration-300">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-kawasaki-green transition-colors duration-300">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-kawasaki-green transition-colors duration-300">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let isAdminMode = false;
+        let isLoggedIn = false;
+
+        // Admin credentials (in real app, this would be handled securely on backend)
+        const adminCredentials = {
+            username: 'alfathrizqi123',
+            password: 'rizqi123'
+        };
+
+        // Show admin login modal
+        function showAdminLogin() {
+            if (isLoggedIn) {
+                toggleAdminMode();
+            } else {
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+            }
+        }
+
+        // Hide admin login modal
+        function hideAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        }
+
+        // Admin login function
+        function adminLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                isLoggedIn = true;
+                hideAdminLogin();
+                toggleAdminMode();
+                showNotification('Login successful! Welcome to Admin Panel');
+                
+                // Update button text
+                document.getElementById('admin-btn-text').textContent = 'Admin Panel';
+                
+                // Clear form
+                document.getElementById('admin-username').value = '';
+                document.getElementById('admin-password').value = '';
+            } else {
+                showNotification('Invalid username or password!');
+                
+                // Add shake animation to form
+                const form = event.target;
+                form.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    form.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Photo preview function
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Validate file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!validTypes.includes(file.type)) {
+                    showNotification('❌ Format file tidak didukung! Gunakan JPG, PNG, atau GIF');
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('❌ Ukuran file terlalu besar! Maksimal 5MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('profile-photo-preview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Foto Profil" class="w-full h-full object-cover rounded-full">`;
+                    showNotification('✅ Foto berhasil diupload!');
+                };
+                reader.onerror = function() {
+                    showNotification('❌ Gagal membaca file!');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Toggle between portfolio and admin mode
+        function toggleAdminMode() {
+            const portfolioMode = document.getElementById('portfolio-mode');
+            const adminMode = document.getElementById('admin-mode');
+            const adminBtnText = document.getElementById('admin-btn-text');
+            
+            if (!isAdminMode) {
+                // Switch to admin mode
+                portfolioMode.classList.add('hidden');
+                adminMode.classList.remove('hidden');
+                adminBtnText.textContent = 'Portfolio';
+                isAdminMode = true;
+                showNotification('Switched to Admin Mode');
+            } else {
+                // Switch to portfolio mode
+                adminMode.classList.add('hidden');
+                portfolioMode.classList.remove('hidden');
+                adminBtnText.textContent = 'Admin';
+                isAdminMode = false;
+                showNotification('Switched to Portfolio Mode');
+            }
+        }
+
+        // Admin section navigation
+        function showAdminSection(sectionName) {
+            // Hide all admin sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById('admin-' + sectionName).classList.remove('hidden');
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard',
+                'profile': 'Kelola Profil',
+                'skills': 'Kelola Keahlian',
+                'projects': 'Kelola Proyek',
+                'messages': 'Pesan Masuk',
+                'settings': 'Pengaturan'
+            };
+            document.getElementById('admin-page-title').textContent = titles[sectionName];
+            
+            // Update sidebar active state
+            document.querySelectorAll('.admin-nav-link').forEach(link => {
+                link.classList.remove('sidebar-active');
+            });
+            
+            // Find the clicked link and add active class
+            const clickedLink = document.querySelector(`[onclick="showAdminSection('${sectionName}')"]`);
+            if (clickedLink) {
+                clickedLink.classList.add('sidebar-active');
+            }
+            
+            showNotification(`📋 Beralih ke ${titles[sectionName]}`);
+        }
+
+        // Modal functions for admin
+        function showAddSkillModal() {
+            const skillName = prompt('Masukkan nama keahlian:');
+            if (skillName) {
+                const skillLevel = prompt('Masukkan tingkat keahlian (0-100):');
+                if (skillLevel && skillLevel >= 0 && skillLevel <= 100) {
+                    const skillDesc = prompt('Masukkan deskripsi keahlian:');
+                    addNewSkill(skillName, skillLevel, skillDesc || 'Keahlian baru');
+                    showNotification('✅ Keahlian baru berhasil ditambahkan!');
+                } else {
+                    showNotification('❌ Tingkat keahlian harus antara 0-100!');
+                }
+            }
+        }
+
+        function showAddProjectModal() {
+            const projectName = prompt('Masukkan nama proyek:');
+            if (projectName) {
+                const projectDesc = prompt('Masukkan deskripsi proyek:');
+                const projectTech = prompt('Masukkan teknologi yang digunakan (pisahkan dengan koma):');
+                if (projectDesc && projectTech) {
+                    addNewProject(projectName, projectDesc, projectTech.split(','));
+                    showNotification('✅ Proyek baru berhasil ditambahkan!');
+                } else {
+                    showNotification('❌ Mohon lengkapi semua data proyek!');
+                }
+            }
+        }
+        
+        // Add new skill function
+        function addNewSkill(name, level, description) {
+            const skillsContainer = document.querySelector('#admin-skills .grid');
+            const skillCard = document.createElement('div');
+            skillCard.className = 'glass-effect p-6 rounded-xl card-hover';
+            skillCard.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-semibold text-kawasaki-green">${name}</h4>
+                    <div class="flex space-x-2">
+                        <button onclick="editSkill(this)" class="text-blue-400 hover:text-blue-300">✏️</button>
+                        <button onclick="deleteSkill(this)" class="text-red-400 hover:text-red-300">🗑️</button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Tingkat Keahlian</span>
+                        <span>${level}%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-kawasaki-green h-2 rounded-full" style="width: ${level}%"></div>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-400">${description}</p>
+            `;
+            skillsContainer.appendChild(skillCard);
+        }
+        
+        // Add new project function
+        function addNewProject(name, description, technologies) {
+            const projectsContainer = document.querySelector('#admin-projects .grid');
+            const projectCard = document.createElement('div');
+            projectCard.className = 'glass-effect p-6 rounded-xl';
+            
+            const techTags = technologies.map(tech => 
+                `<span class="bg-kawasaki-green/20 text-kawasaki-green px-2 py-1 rounded text-sm">${tech.trim()}</span>`
+            ).join('');
+            
+            projectCard.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-semibold text-kawasaki-green text-lg">🚀 ${name}</h4>
+                    <div class="flex space-x-2">
+                        <button onclick="editProject(this)" class="text-blue-400 hover:text-blue-300">✏️</button>
+                        <button onclick="deleteProject(this)" class="text-red-400 hover:text-red-300">🗑️</button>
+                    </div>
+                </div>
+                <p class="text-gray-300 mb-4">${description}</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    ${techTags}
+                </div>
+                <div class="flex justify-between text-sm text-gray-400">
+                    <span>Status: ✅ Selesai</span>
+                    <span>Dibuat: ${new Date().toLocaleDateString('id-ID')}</span>
+                </div>
+            `;
+            projectsContainer.appendChild(projectCard);
+        }
+        
+        // Edit skill function
+        function editSkill(button) {
+            const skillCard = button.closest('.glass-effect');
+            const skillName = skillCard.querySelector('h4').textContent;
+            const skillLevel = skillCard.querySelector('.flex.justify-between span:last-child').textContent.replace('%', '');
+            const skillDesc = skillCard.querySelector('p').textContent;
+            
+            const newName = prompt('Edit nama keahlian:', skillName);
+            if (newName) {
+                const newLevel = prompt('Edit tingkat keahlian (0-100):', skillLevel);
+                if (newLevel && newLevel >= 0 && newLevel <= 100) {
+                    const newDesc = prompt('Edit deskripsi:', skillDesc);
+                    if (newDesc) {
+                        // Update the card
+                        skillCard.querySelector('h4').textContent = newName;
+                        skillCard.querySelector('.flex.justify-between span:last-child').textContent = newLevel + '%';
+                        skillCard.querySelector('.bg-kawasaki-green').style.width = newLevel + '%';
+                        skillCard.querySelector('p').textContent = newDesc;
+                        showNotification('✅ Keahlian berhasil diperbarui!');
+                    }
+                }
+            }
+        }
+        
+        // Delete skill function
+        function deleteSkill(button) {
+            const skillCard = button.closest('.glass-effect');
+            const skillName = skillCard.querySelector('h4').textContent;
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus keahlian "${skillName}"?`)) {
+                skillCard.remove();
+                showNotification('✅ Keahlian berhasil dihapus!');
+            }
+        }
+        
+        // Edit project function
+        function editProject(button) {
+            const projectCard = button.closest('.glass-effect');
+            const projectName = projectCard.querySelector('h4').textContent.replace('🚀 ', '');
+            const projectDesc = projectCard.querySelector('p').textContent;
+            
+            const newName = prompt('Edit nama proyek:', projectName);
+            if (newName) {
+                const newDesc = prompt('Edit deskripsi proyek:', projectDesc);
+                if (newDesc) {
+                    projectCard.querySelector('h4').textContent = '🚀 ' + newName;
+                    projectCard.querySelector('p').textContent = newDesc;
+                    showNotification('✅ Proyek berhasil diperbarui!');
+                }
+            }
+        }
+        
+        // Delete project function
+        function deleteProject(button) {
+            const projectCard = button.closest('.glass-effect');
+            const projectName = projectCard.querySelector('h4').textContent.replace('🚀 ', '');
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus proyek "${projectName}"?`)) {
+                projectCard.remove();
+                showNotification('✅ Proyek berhasil dihapus!');
+            }
+        }
+
+        // Smooth scrolling for portfolio navigation
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notification-text').textContent = message;
+            notification.classList.remove('hidden');
+            
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Portfolio form handlers
+        function sendMessage(event) {
+            event.preventDefault();
+            showNotification('Message sent successfully! I\'ll get back to you soon.');
+            event.target.reset();
+        }
+
+        // Admin form handlers
+        function saveProfile(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const profileData = {
+                fullName: event.target.querySelector('input[type="text"]').value,
+                title: event.target.querySelectorAll('input[type="text"]')[1].value,
+                email: event.target.querySelector('input[type="email"]').value,
+                phone: event.target.querySelector('input[type="tel"]').value,
+                about: event.target.querySelector('textarea').value
+            };
+            
+            // Simulate saving (in real app, this would be an API call)
+            setTimeout(() => {
+                // Update portfolio sections with new data
+                updatePortfolioData(profileData);
+                showNotification('✅ Profil berhasil diperbarui!');
+            }, 1000);
+            
+            // Show loading state
+            const saveBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = '💾 Menyimpan...';
+            saveBtn.disabled = true;
+            
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }, 1000);
+        }
+        
+        // Update portfolio data with admin changes
+        function updatePortfolioData(profileData) {
+            // Update hero section
+            const heroTitle = document.querySelector('#home h1');
+            if (heroTitle) heroTitle.textContent = profileData.fullName;
+            
+            const heroSubtitle = document.querySelector('#home .typing-animation');
+            if (heroSubtitle) heroSubtitle.textContent = profileData.title;
+            
+            // Update about section
+            const aboutText = document.querySelector('#about .glass-card p');
+            if (aboutText) aboutText.textContent = profileData.about;
+            
+            // Update contact info
+            const emailContact = document.querySelector('#contact p:contains("alfath.dev@example.com")');
+            if (emailContact) emailContact.textContent = profileData.email;
+            
+            const phoneContact = document.querySelector('#contact p:contains("+62 812-3456-7890")');
+            if (phoneContact) phoneContact.textContent = profileData.phone;
+        }
+
+        function adminLogout() {
+            if (confirm('Are you sure you want to logout from admin panel?')) {
+                showNotification('Logging out...');
+                
+                setTimeout(() => {
+                    isLoggedIn = false;
+                    isAdminMode = false;
+                    
+                    // Switch back to portfolio mode
+                    document.getElementById('admin-mode').classList.add('hidden');
+                    document.getElementById('portfolio-mode').classList.remove('hidden');
+                    
+                    // Reset button text
+                    document.getElementById('admin-btn-text').textContent = 'Admin Login';
+                    
+                    showNotification('Logged out successfully');
+                }, 1500);
+            }
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-kawasaki-dark/95');
+            } else {
+                navbar.classList.remove('bg-kawasaki-dark/95');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            // Add mobile menu functionality here
+            showNotification('Mobile menu clicked');
+        });
+
+        // Portfolio navigation highlighting
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('text-kawasaki-green'));
+                this.classList.add('text-kawasaki-green');
+            });
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('Welcome to Rizqi Portfolio');
+            
+            // Animate skill bars on scroll
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillBars = entry.target.querySelectorAll('.skill-bar');
+                        skillBars.forEach(bar => {
+                            bar.style.animation = 'fillBar 2s ease-out';
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                observer.observe(skillsSection);
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97cd517a0341fe84',t:'MTc1NzQ5MDQ1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
